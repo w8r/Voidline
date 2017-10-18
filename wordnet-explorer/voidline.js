@@ -5,7 +5,7 @@ var settings = {
     startNode: 100001740,
     algorithm: 'forcelink',
     all: false, // currently get all is not working, gets too large a graph; try using the iteration parameters below
-    iterations: 50
+    iterations: 30
 };
 
 var currentIterations = settings.iterations;
