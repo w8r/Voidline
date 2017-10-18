@@ -1,0 +1,11 @@
+[28-Nov-2013 07:01:36 CST6CDT] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 64 bytes) in /home/virtuema/public_html/voidline/interface/includes/wordnet.php on line 135
+[28-Nov-2013 10:55:31 CST6CDT] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 523800 bytes) in /home/virtuema/public_html/voidline/interface/includes/wordnet.php on line 85
+[28-Nov-2013 10:55:40 CST6CDT] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 523800 bytes) in /home/virtuema/public_html/voidline/interface/includes/wordnet.php on line 85
+[28-Nov-2013 10:56:05 CST6CDT] PHP Fatal error:  Allowed memory size of 268435456 bytes exhausted (tried to allocate 546 bytes) in /home/virtuema/public_html/voidline/interface/includes/wordnet.php on line 49
+[28-Nov-2013 10:56:26 CST6CDT] PHP Fatal error:  Out of memory (allocated 320602112) (tried to allocate 523800 bytes) in /home/virtuema/public_html/voidline/interface/includes/wordnet.php on line 85
+[28-Nov-2013 10:58:03 CST6CDT] PHP Fatal error:  Out of memory (allocated 320602112) (tried to allocate 523800 bytes) in /home/virtuema/public_html/voidline/interface/includes/wordnet.php on line 85
+[28-Nov-2013 10:58:42 CST6CDT] PHP Fatal error:  Out of memory (allocated 320602112) (tried to allocate 523800 bytes) in /home/virtuema/public_html/voidline/interface/includes/wordnet.php on line 85
+[28-Nov-2013 11:00:26 CST6CDT] PHP Fatal error:  Out of memory (allocated 320602112) (tried to allocate 523800 bytes) in /home/virtuema/public_html/voidline/interface/includes/wordnet.php on line 85
+[28-Nov-2013 12:48:22 CST6CDT] PHP Fatal error:  Out of memory (allocated 321650688) (tried to allocate 523800 bytes) in /home/virtuema/public_html/voidline/interface/includes/database.php on line 47
+[28-Nov-2013 15:09:33 CST6CDT] PHP Fatal error:  Using $this when not in object context in /home/virtuema/public_html/voidline/interface/index.php on line 93
+[28-Nov-2013 16:01:46 CST6CDT] PHP Fatal error:  Out of memory (allocated 320339968) (tried to allocate 523800 bytes) in /home/virtuema/public_html/voidline/interface/includes/wordnet.php on line 235
