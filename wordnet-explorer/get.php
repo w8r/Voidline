@@ -86,10 +86,19 @@ class getter {
 
 		for ($i = 0; $i < count($results); $i++) {
 		    $results[$i]["data"] = new \stdClass;
+		    $results[$i]["data"]->hasChildren = $this->hasChildren($results[$i]["id"]);
+		    $results[$i]["color"] = $results[$i]["data"]->hasChildren ? "#c4772b" : "#38701a";
 		    $results[$i]["data"]->description = $results[$i]["description"];
 		    unset($results[$i]["description"]);
 		    array_push($this->results->nodes, $results[$i]);
         }
+	}
+
+	function hasChildren($node) {
+	    $query = "SELECT synset_id_2 FROM wn_hyponym WHERE synset_id_1 = " . $node;
+        $this->db->query($query);
+        $results = $this->db->loadResults();
+        return count($results) > 0 ? true : false;
 	}
 }
 $getter = new getter();

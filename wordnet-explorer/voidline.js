@@ -4,8 +4,11 @@ var settings = {
     loadAll: false,
     startNode: 100001740,
     algorithm: 'forcelink',
-    all: false
+    all: false, // currently get all is not working, gets too large a graph; try using the iteration parameters below
+    iterations: 50
 };
+
+var currentIterations = settings.iterations;
 
 function updateGraph() {
     switch(settings.algorithm) {
@@ -20,10 +23,26 @@ function updateGraph() {
 
 function loadData(nodeID, subsequent) {
     if (typeof (subsequent) == "undefined") subsequent = false;
-    $.getJSON(("/voidline/wordnet-explorer/get.php?id=" + nodeID + "&subsequent=" + subsequent + "&all=" + settings.all), function(data) {
-        ogma.graph.addNodes(data.nodes);
-        ogma.graph.addEdges(data.edges);
-        updateGraph();
+
+    var dataURL = "/voidline/wordnet-explorer/get.php?id=" + nodeID + "&subsequent=" + subsequent + "&all=" + settings.all;
+    $.ajax({
+        url: dataURL,
+        dataType: 'json',
+        async: false,
+        success: function(data) {
+            ogma.graph.addNodes(data.nodes);
+            ogma.graph.addEdges(data.edges);
+            if (currentIterations > 0) {
+                $.each(data.nodes, function(i, node) {
+                    if (node.data.hasChildren) {
+                        loadData(node.id, true);
+                    }
+                });
+                console.debug(currentIterations);
+                currentIterations--;
+            }
+            updateGraph();
+        }
     });
 }
 
