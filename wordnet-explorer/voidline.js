@@ -2,13 +2,16 @@ var ogma = null;
 
 var settings = {
     loadAll: false,
-    startNode: 100001740,
+    startNode: 100012748,
     algorithm: 'forcelink',
     all: false, // currently get all is not working, gets too large a graph; try using the iteration parameters below
     iterations: 30
 };
 
 var currentIterations = settings.iterations;
+
+var nodeIDs = [];
+var edgeIDs = [];
 
 function updateGraph() {
     switch(settings.algorithm) {
@@ -30,15 +33,18 @@ function loadData(nodeID, subsequent) {
         dataType: 'json',
         async: false,
         success: function(data) {
+			data.nodes = data.nodes.filter(item => !nodeIDs.includes(item.id));
+			data.edges = data.edges.filter(item => !edgeIDs.includes(item.id));
             ogma.graph.addNodes(data.nodes);
             ogma.graph.addEdges(data.edges);
+			nodeIDs = [...nodeIDs, ...data.nodes.map(node => node.id)];
+			edgeIDs = [...edgeIDs, ...data.edges.map(edge => edge.id)];
             if (currentIterations > 0) {
                 $.each(data.nodes, function(i, node) {
                     if (node.data.hasChildren) {
                         loadData(node.id, true);
                     }
                 });
-                console.debug(currentIterations);
                 currentIterations--;
             }
             updateGraph();

@@ -68,7 +68,7 @@ class wordnet {
 		
 		$rows = array();
 		
-		for ($j = 0; $rows[$j] = mysql_fetch_assoc($this->db->Query_ID); $j++); array_pop($rows);
+		for ($j = 0; $rows[$j] = mysqli_fetch_assoc($this->db->Query_ID); $j++); array_pop($rows);
 		
 		foreach ($rows as $row) {
 			
@@ -142,7 +142,7 @@ class wordnet {
 		
 		$rows = array();
 		
-		for ($j = 0; $rows[$j] = mysql_fetch_assoc($this->db->Query_ID); $j++); array_pop($rows);
+		for ($j = 0; $rows[$j] = mysqli_fetch_assoc($this->db->Query_ID); $j++); array_pop($rows);
 		
 		foreach ($rows as $row) {
 			
@@ -216,7 +216,7 @@ class wordnet {
 		
 		$rows = array();
 		
-		for ($j = 0; $rows[$j] = mysql_fetch_assoc($this->db->Query_ID); $j++); array_pop($rows);
+		for ($j = 0; $rows[$j] = mysqli_fetch_assoc($this->db->Query_ID); $j++); array_pop($rows);
 		
 		if (!$recursion) $this->items = 0;
 		

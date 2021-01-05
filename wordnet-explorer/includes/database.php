@@ -6,9 +6,9 @@ class database {
 	
     var $Database = "virtuema_voidline";
 	
-    var $User     = "virtuema_voidlin";
+    var $User     = "root";
 	
-    var $Password = "suckmyass";
+    var $Password = "";
  
     var $Link_ID  = 0;
 	
@@ -30,11 +30,11 @@ class database {
 	
     function connect()
         {
-        if( 0 == $this->Link_ID )
-            $this->Link_ID=mysql_connect( $this->Host, $this->User, $this->Password );
+        if(!$this->Link_ID )
+            $this->Link_ID=mysqli_connect( $this->Host, $this->User, $this->Password );
         if( !$this->Link_ID )
             $this->halt( "Link-ID == false, connect failed" );
-        if( !mysql_query( sprintf( "use %s", $this->Database ), $this->Link_ID ) )
+        if( !mysqli_query($this->Link_ID, sprintf( "use %s", $this->Database )) )
             $this->halt( "cannot use database ".$this->Database );
         } // end function connect
  
@@ -45,10 +45,10 @@ class database {
     function query( $Query_String )
         {
         $this->connect();
-        $this->Query_ID = mysql_query( $Query_String,$this->Link_ID );
+        $this->Query_ID = mysqli_query( $this->Link_ID,$Query_String );
         $this->Row = 0;
-        $this->Errno = mysql_errno();
-        $this->Error = mysql_error();
+        $this->Errno = mysqli_errno($this->Link_ID);
+        $this->Error = mysqli_error($this->Link_ID);
         if( !$this->Query_ID )
             $this->halt( "Invalid SQL: ".$Query_String );
         return $this->Query_ID;
@@ -62,7 +62,7 @@ class database {
 		
 		$results = array();
 		
-		for($i = 0; $results[$i] = mysql_fetch_assoc($this->Query_ID); $i++);
+		for($i = 0; $results[$i] = mysqli_fetch_assoc($this->Query_ID); $i++);
 		
 		array_pop($results);
 		
@@ -79,7 +79,7 @@ class database {
         printf( "
 <strong>Database error:</strong> %s
 n", $msg );
-        printf( "<strong>MySQL Error</strong>: %s (%s)
+        printf( "<strong>mysqli Error</strong>: %s (%s)
 n", $this->Errno, $this->Error );
         die( "Session halted." );
         } // end function halt
@@ -90,14 +90,14 @@ n", $this->Errno, $this->Error );
 	
     function nextRecord()
         {
-        @ $this->Record = mysql_fetch_array( $this->Query_ID );
+        @ $this->Record = mysqli_fetch_array( $this->Query_ID );
         $this->Row += 1;
-        $this->Errno = mysql_errno();
-        $this->Error = mysql_error();
+        $this->Errno = mysqli_errno();
+        $this->Error = mysqli_error();
         $stat = is_array( $this->Record );
         if( !$stat )
             {
-            @ mysql_free_result( $this->Query_ID );
+            @ mysqli_free_result( $this->Query_ID );
             $this->Query_ID = 0;
             }
         return $stat;
@@ -109,7 +109,7 @@ n", $this->Errno, $this->Error );
 	
     function singleRecord()
         {
-        $this->Record = mysql_fetch_array( $this->Query_ID );
+        $this->Record = mysqli_fetch_array( $this->Query_ID );
         $stat = is_array( $this->Record );
         return $stat;
         } // end function singleRecord
@@ -120,7 +120,7 @@ n", $this->Errno, $this->Error );
 	
     function numRows()
         {
-        return mysql_num_rows( $this->Query_ID );
+        return mysqli_num_rows( $this->Query_ID );
         } // end function numRows
  
 	//-------------------------------------------
@@ -129,14 +129,14 @@ n", $this->Errno, $this->Error );
 	
     function lastId()
         {
-        return mysql_insert_id();
+        return mysqli_insert_id();
         } // end function numRows
  
 	//-------------------------------------------
 	//    Returns Escaped string
 	//-------------------------------------------
 	
-    function mysql_escape_mimic($inp)
+    function mysqli_escape_mimic($inp)
         {
         if(is_array($inp))
             return array_map(__METHOD__, $inp);
@@ -152,7 +152,7 @@ n", $this->Errno, $this->Error );
 	
     function affectedRows()
         {
-            return mysql_affected_rows();
+            return mysqli_affected_rows();
         } // end function numRows
 	 
 	//-------------------------------------------
@@ -161,7 +161,7 @@ n", $this->Errno, $this->Error );
 	
     function numFields()
         {
-            return mysql_num_fields($this->Query_ID);
+            return mysqli_num_fields($this->Query_ID);
         } // end function numRows
  
     } // end class Database
